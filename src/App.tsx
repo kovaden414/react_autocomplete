@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { peopleFromServer } from './data/people';
 import debounce from 'lodash.debounce';
@@ -11,7 +11,7 @@ export const App: React.FC = () => {
   const [peopleList, setPeopleList] = useState(false);
   const delay = 300;
 
-  const applyQuery = useCallback(debounce(setAppliedQuery, delay), []);
+  const applyQuery = useMemo(() => debounce(setAppliedQuery, delay), []);
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
