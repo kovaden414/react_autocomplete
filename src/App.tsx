@@ -8,10 +8,10 @@ export const App: React.FC = () => {
   const [chosenPerson, setChosenPerson] = useState<Person | null>(null);
   const [query, setQuery] = useState('');
   const [appliedQuery, setAppliedQuery] = useState('');
-  const [peopleList, setPeopleList] = useState(false);
+  const [showList, setShowList] = useState(false);
   const delay = 300;
 
-  const applyQuery = useMemo(() => debounce(setAppliedQuery, delay), []);
+  const applyQuery = useMemo(() => debounce(setAppliedQuery, delay), [delay]);
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -30,7 +30,7 @@ export const App: React.FC = () => {
 
   const handleSave = (personName: string) => {
     setQuery(personName);
-    setPeopleList(false);
+    setShowList(false);
 
     const selectedPerson = peopleFromServer.find(
       person => person.name === personName,
@@ -57,12 +57,12 @@ export const App: React.FC = () => {
               data-cy="search-input"
               value={query}
               onChange={handleQuery}
-              onFocus={() => setPeopleList(true)}
-              onBlur={() => setPeopleList(false)}
+              onFocus={() => setShowList(true)}
+              onBlur={() => setShowList(false)}
             />
           </div>
 
-          {peopleList && (
+          {showList && (
             <div
               className="dropdown-menu"
               role="menu"
